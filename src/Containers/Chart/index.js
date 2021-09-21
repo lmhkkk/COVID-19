@@ -52,7 +52,7 @@ class Chart extends Component {
   }
   render() {
     return (
-      <div>
+      <div >
       <HighchartsReact highcharts={Highcharts} options={this.state.options} />
     </div>
     )

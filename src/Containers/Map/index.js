@@ -90,7 +90,7 @@ class Map extends Component {
   };
   render() {
     return (
-      <div>
+      <div style={{width:"100%",height:"200px"}}>
         <HighchartsReact
           highcharts={Highcharts}
           constructorType={'mapChart'}

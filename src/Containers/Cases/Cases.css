@@ -1,0 +1,45 @@
+.cases-display{
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 16px;
+  border: 0.5rem inset rgb(164, 252, 255);
+  margin-bottom: 16px;
+  height: 10rem;
+}
+.total-cases{
+  border: 0.5rem inset red;
+  padding: 8px;
+  line-height: 32px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 7rem;
+}
+.total-cases p:nth-child(2){
+  color: red;
+}
+.recovered-cases{
+  border: 0.5rem inset greenyellow;
+  padding: 8px;
+  line-height: 32px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 7rem;
+}
+.recovered-cases p:nth-child(2){
+  color: green;
+}
+.death-cases{
+  border: 0.5rem inset gray;
+  padding: 8px;
+  line-height: 32px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 7rem;
+}
+.death-cases p:nth-child(2){
+  color: gray;
+}

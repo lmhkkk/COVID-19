@@ -1,0 +1,19 @@
+.app-display{
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-gap: 16px;
+  margin: 0 40px 16px 40px; 
+
+}
+.app-status{
+  background-color:antiquewhite;
+  padding: 16px;
+  box-shadow: 0.05em 0.05em 0.1em 0.1em rgb(122, 122, 122), 0.05em 0.05em rgb(122, 122, 122);
+  height: 63rem;
+}
+.app-livecase{
+  background-color:antiquewhite;
+  padding: 16px;
+  box-shadow: 0.05em 0.05em rgb(122, 122, 122), -0.05em 0.05em 0.1em 0.1em rgb(122, 122, 122);
+  height: 63rem;
+}
