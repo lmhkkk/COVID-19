@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Chart from "../Chart";
-import Map from "../Map";
-import List from "../List";
-import Cases from "../Cases";
+import Chart from "../Components/Chart";
+import List from "../Components/List";
+import Cases from "../Components/Cases";
 import "./Home.css"
-import NavBar from "../../Layouts/Navbar";
-import CountryAPI from "../../Services/countries";
+import NavBar from "../Layouts/Navbar";
+import covidAPI from "../Services/covidAPI";
+import Map from "../Components/Map";
 
 class Home extends Component {
   constructor(props){
@@ -13,16 +13,19 @@ class Home extends Component {
     this.state ={
       summaryOfCountries:[],
       globalStatus:{},
+      worldMap:{},
     };
   }
 
   async componentDidMount(){
     try{
-      const response = await CountryAPI.summary();
+      const response = await covidAPI.summary();
+      const responseOfWorldMap = await covidAPI.fetchMapDataWorld();
       console.log(response)
       this.setState({
         summaryOfCountries: response.data.Countries,
         globalStatus: response.data.Global,
+        worldMap: responseOfWorldMap.data,
       })
     }catch(err){
       console.log(err);
@@ -30,7 +33,7 @@ class Home extends Component {
   }
 
   render() {
-    const {globalStatus,summaryOfCountries} = this.state;
+    const {globalStatus,summaryOfCountries,worldMap} = this.state;
     return (
       <div>
         <NavBar />
@@ -38,7 +41,7 @@ class Home extends Component {
           <div className="app-status">
            <Cases globalStatus={globalStatus}/>
             <Chart />
-            <Map />
+            <Map worldMap={worldMap} summaryOfCountries={summaryOfCountries}/>
           </div>
           <div className="app-livecase">
             <List summaryOfCountries={summaryOfCountries}

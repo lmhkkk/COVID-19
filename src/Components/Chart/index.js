@@ -31,21 +31,12 @@ class Chart extends Component {
       },
     
       plotOptions: {
-        series: {
-          label: {
-            connectorAllowed: false,
-          },
-          pointStart: 2010,
-        },
+
       },
       series: [
         {
-          name: "test1",
+          name: "Total Cases",
           data: [1, 2, 1, 4, 3, 1, 5, 7, 9],
-        },
-        {
-          name: "test2",
-          data: [3, 5, 7, 1, 3, 4, 6, 8, 9],
         },
       ],
     }
