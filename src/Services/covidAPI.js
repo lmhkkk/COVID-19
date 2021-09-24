@@ -12,7 +12,7 @@ const CountryAPI = {
       .format()}`);
   },
   statusOverWorld:()=>{
-    return axios.get(`https://api.covid19api.com/world`)
+    return axios.get(`https://api.covid19api.com/world`);
   },
   summary: ()=>{
     return axios.get(`${baseAPI}/summary`);  

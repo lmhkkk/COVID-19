@@ -1,24 +1,30 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Cases.css";
 
-const Cases = (props) => {
-  const{TotalConfirmed,TotalDeaths,TotalRecovered}=props.globalStatus;
-  return (
-    <div className="cases-display">
-      <div className="total-cases">
-        <p>Total Cases</p>
-        <p>{TotalConfirmed}</p>
+class Cases extends Component {
+
+  onHandleChartMap=(e)=>{
+    this.props.onHandleDisplay(e.target.value);
+  }
+  render() {
+    const { TotalConfirmed, TotalDeaths, TotalRecovered } = this.props.globalStatus;
+    return (
+      <div className="cases-display">
+        <button className="total-cases" value="confirmed" onClick={this.onHandleChartMap}>
+          Total Cases <br/>
+          <>{TotalConfirmed}</>
+        </button>
+        <button className="recovered-cases" value="recovered" onClick={this.onHandleChartMap}>
+          Recovered Cases <br/>
+          {TotalRecovered}
+        </button>
+        <button className="death-cases" value="death" onClick={this.onHandleChartMap}>
+          Death Cases <br/>
+          {TotalDeaths}
+        </button>
       </div>
-      <div className="recovered-cases">
-        <p>Recovered Cases</p>
-        <p>{TotalRecovered}</p>
-      </div>
-      <div className="death-cases">
-        <p>Death Cases</p>
-        <p>{TotalDeaths}</p>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Cases;

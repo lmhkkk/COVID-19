@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import mapDataWorld from "./mapDataWorld.js";
 
 require("highcharts/modules/map")(Highcharts);
 
@@ -40,7 +39,7 @@ const initOptions = {
   },
   series: [
     {
-      name: "Số ca nhiễm",
+      name: "Total Cases",
       joinBy: ["hc-key", "key"],
     },
   ],
@@ -49,15 +48,31 @@ const initOptions = {
 const Map = (props) => {
   const [options, setOptions] = useState({});
   const [mapLoaded, setMapLoaded] = useState(false);
-  const { summaryOfCountries, worldMap } = props;
+  const { summaryOfCountries, worldMap,display } = props;
 
   useEffect(() => {
     if (worldMap && Object.keys(worldMap).length) {
-      const fakeData = summaryOfCountries.map((item) => ({
-        key: item.CountryCode.toLowerCase(),
-        value: item.TotalConfirmed,
-      }));
 
+      const fakeData = summaryOfCountries.map((item) => {
+        switch(display){
+          case "recovered":
+            return({
+            key: item.CountryCode.toLowerCase(),
+            value: item.TotalRecovered,
+          });
+          case "death":
+            return({
+              key: item.CountryCode.toLowerCase(),
+              value: item.TotalDeaths,
+            });
+          default:
+            return({
+              key: item.CountryCode.toLowerCase(),
+              value: item.TotalConfirmed,
+            })
+
+        }
+      });
       setOptions(() => ({
         ...initOptions,
         title: {
@@ -70,7 +85,7 @@ const Map = (props) => {
 
       if (!mapLoaded) setMapLoaded(true);
     }
-  }, [worldMap, mapLoaded]);
+  }, [worldMap,summaryOfCountries, display,mapLoaded]);
   if (!mapLoaded) return null;
   return (
     <div >

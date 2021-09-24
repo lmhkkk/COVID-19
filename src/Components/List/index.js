@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import "./List.css";
 
-const CONFIRMED = 0;
-const DEATH = 1;
-const RECOVERED = 2;
 class List extends Component {
   state = {
-    sortType: CONFIRMED,
+    sortTypeStatus: "confirmed",
   };
   onChangeSortType = (e) => {
     e.preventDefault();
     this.setState({
-      sortType: +e.target.value,
+      sortTypeStatus: e.target.value,
     });
+    this.props.onHandleDisplay(e.target.value);
   };
   render() {
-    const { summaryOfCountries, globalStatus } = this.props;
+    const { summaryOfCountries } = this.props;
     const { sortType } = this.state;
     return (
       <>
@@ -23,16 +21,22 @@ class List extends Component {
           LIVE CASES BY COUNTRY
         </p>
         <div className="table-title">
-          <span className="p-2">World</span>
+          <select className="p-2 form-select" style={{width:"18rem"}} >
+            <option value="world">World</option>
+            {summaryOfCountries.map((item, index) => {
+              const { Country } = item;
+              return <option key={index} value={`${Country.toLowerCase()}`}>{Country}</option>;
+            })}
+          </select>
           <select
             className="form-select"
             name="sortType"
-            value={this.state.sortType}
+            value={this.state.sortTypeStatus}
             onChange={this.onChangeSortType}
           >
-            <option value={CONFIRMED}>TotalConfirmed</option>
-            <option value={DEATH}>TotalDeaths</option>
-            <option value={RECOVERED}>TotalRecovered</option>
+            <option value="confirmed">TotalConfirmed</option>
+            <option value="death">TotalDeaths</option>
+            <option value="recovered">TotalRecovered</option>
           </select>
         </div>
         <div className="table-display">
@@ -44,18 +48,18 @@ class List extends Component {
               </tr>
             </thead>
             <tbody>
-              {summaryOfCountries.map((item,index) => {
+              {summaryOfCountries.map((item, index) => {
                 const { Country, TotalConfirmed, TotalDeaths, TotalRecovered } =
                   item;
                 switch (sortType) {
-                  case DEATH:
+                  case "death":
                     return (
                       <tr key={index}>
                         <td>{Country}</td>
                         <td className="px-4">{TotalDeaths}</td>
                       </tr>
                     );
-                  case RECOVERED:
+                  case "recovered":
                     return (
                       <tr key={index}>
                         <td>{Country}</td>
