@@ -4,17 +4,17 @@ import HighchartsReact from "highcharts-react-official";
 import moment from "moment";
 
 const generateOptions = (data, msg) => {
-  const categories = data
-    .map((item) => moment(item.Date).format("MM/DD/YYYY"))
-    .sort();
   data.sort((data1, data2) => {
     data1 = new Date(data1.Date);
     data2 = new Date(data2.Date);
     return data1 - data2;
   });
+  const categories = data
+    .map((item) => moment(item.Date).utc(0).format("MM/DD/YYYY")).sort();
   const initoptions = {
     chart: {
       type: "spline",
+      height:"320",
     },
     title: {
       text: "COVID -19 Chart",
@@ -35,11 +35,7 @@ const generateOptions = (data, msg) => {
       verticalAlign: "middle",
     },
     colors: ["red"],
-    series: [
-      {
-        name: "",
-      },
-    ],
+
   };
   switch (msg) {
     case "recovered":
@@ -48,7 +44,6 @@ const generateOptions = (data, msg) => {
         colors:["green"],
         series: [
           {
-            ...initoptions.series[0],
             name: "Total Recovered",
             data: data.map((item) => item.TotalRecovered),
           },
@@ -60,7 +55,6 @@ const generateOptions = (data, msg) => {
         colors:["gray"],
         series: [
           {
-            ...initoptions.series[0],
             name: "Total Death",
             data: data.map((item) => item.TotalDeaths),
           },
@@ -71,7 +65,6 @@ const generateOptions = (data, msg) => {
         ...initoptions,
         series: [
           {
-            ...initoptions.series[0],
             name: "Total Confirmed",
             data: data.map((item) => item.TotalConfirmed),
           },

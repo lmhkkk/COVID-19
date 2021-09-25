@@ -5,17 +5,17 @@
   grid-gap: 16px;
   border: 0.5rem inset rgb(164, 252, 255);
   margin-bottom: 16px;
-  height: 10rem;
+  height: 8rem;
 
 }
 .total-cases{
   border: 0.5rem inset red;
   padding: 0 8px;
-  line-height: 3rem;
+  line-height: 2rem;
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
-  height: 7rem;
+  height: 5rem;
   text-align: left;
   background-color: transparent;
   color: red;
@@ -23,11 +23,11 @@
 .recovered-cases{
   border: 0.5rem inset greenyellow;
   padding: 0 8px;
-  line-height: 3rem;
+  line-height: 2rem;
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
-  height: 7rem;
+  height: 5rem;
   text-align: left;
   background-color: transparent;
   color: green;
@@ -35,11 +35,11 @@
 .death-cases{
   border: 0.5rem inset gray;
   padding: 0 8px;
-  line-height: 3rem;
+  line-height: 2rem;
   width: 100%;
   font-weight: bold;
   font-size: 1.5rem;
-  height: 7rem;
+  height: 5rem;
   text-align: left;
   background-color: transparent;
   color: gray;

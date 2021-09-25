@@ -3,18 +3,25 @@ import "./List.css";
 
 class List extends Component {
   state = {
-    sortTypeStatus: "confirmed",
+    sortTypeStatus: "",
   };
   onChangeSortType = (e) => {
     e.preventDefault();
+    this.props.onHandleDisplay(e.target.value);
     this.setState({
       sortTypeStatus: e.target.value,
     });
-    this.props.onHandleDisplay(e.target.value);
+
   };
+  componentDidMount(){
+    this.setState({
+      sortTypeStatus:this.props.display,
+    })
+  }
   render() {
     const { summaryOfCountries } = this.props;
-    const { sortType } = this.state;
+    const { sortTypeStatus } = this.state;
+
     return (
       <>
         <p className=" fw-bold text-danger text-center fs-4">
@@ -31,7 +38,7 @@ class List extends Component {
           <select
             className="form-select"
             name="sortType"
-            value={this.state.sortTypeStatus}
+            value={sortTypeStatus}
             onChange={this.onChangeSortType}
           >
             <option value="confirmed">TotalConfirmed</option>
@@ -51,7 +58,7 @@ class List extends Component {
               {summaryOfCountries.map((item, index) => {
                 const { Country, TotalConfirmed, TotalDeaths, TotalRecovered } =
                   item;
-                switch (sortType) {
+                switch (sortTypeStatus) {
                   case "death":
                     return (
                       <tr key={index}>

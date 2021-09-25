@@ -8,6 +8,9 @@ const initOptions = {
   title: {
     text: "",
   },
+  chart:{
+    height:"390",
+  },
   colorAxis: {
     min: 0,
     stops: [
