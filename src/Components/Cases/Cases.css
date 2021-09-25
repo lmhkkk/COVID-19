@@ -19,6 +19,13 @@
   text-align: left;
   background-color: transparent;
   color: red;
+  text-align: center;
+  transition: all 0.3s;
+}
+.total-cases:hover{
+  transform: scale(1.05);
+  background-color: red;
+  color: white;
 }
 .recovered-cases{
   border: 0.5rem inset greenyellow;
@@ -31,7 +38,15 @@
   text-align: left;
   background-color: transparent;
   color: green;
+  text-align: center;
+  transition: all 0.3s;
 }
+.recovered-cases:hover{
+  transform: scale(1.05);
+  background-color: greenyellow;
+  color: white;
+}
+
 .death-cases{
   border: 0.5rem inset gray;
   padding: 0 8px;
@@ -43,4 +58,11 @@
   text-align: left;
   background-color: transparent;
   color: gray;
+  text-align: center;
+  transition: all 0.3s;
+}
+.death-cases:hover{
+  transform: scale(1.05);
+  background-color: gray;
+  color: white;
 }

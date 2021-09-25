@@ -48,47 +48,31 @@ const initOptions = {
   ],
 };
 
-const WorldMap = (props) => {
+const CountryMap = (props) => {
   const [options, setOptions] = useState({});
   const [mapLoaded, setMapLoaded] = useState(false);
-  const { summaryOfCountries, worldMap,display} = props;
+  const {countryMap,summaryOfCountry } = props;
+
 
   useEffect(() => {
-    if (worldMap && Object.keys(worldMap).length) {
-
-      const fakeData = summaryOfCountries.map((item) => {
-        switch(display){
-          case "recovered":
-            return({
-            key: item.CountryCode.toLowerCase(),
-            value: item.TotalRecovered,
-          });
-          case "death":
-            return({
-              key: item.CountryCode.toLowerCase(),
-              value: item.TotalDeaths,
-            });
-          default:
-            return({
-              key: item.CountryCode.toLowerCase(),
-              value: item.TotalConfirmed,
-            })
-
-        }
-      });
+    if (countryMap && Object.keys(countryMap).length) {
+      const fakeData = countryMap.features.map((feature, index) => ({
+        key: feature.properties["hc-key"],
+        value: index,
+      }));  
       setOptions(() => ({
         ...initOptions,
         title: {
           text: "Global Status",
         },
         series: [
-          { ...initOptions.series[0], mapData: worldMap, data: fakeData },
+          { ...initOptions.series[0], mapData:countryMap, data: fakeData },
         ],
       }));
 
       if (!mapLoaded) setMapLoaded(true);
     }
-  }, [worldMap,summaryOfCountries, display,mapLoaded]);
+  }, [countryMap,mapLoaded,summaryOfCountry]);
   if (!mapLoaded) return null;
   return (
     <div >
@@ -96,12 +80,13 @@ const WorldMap = (props) => {
         highcharts={Highcharts}
         constructorType={"mapChart"}
         options={options}
+
       />
     </div>
   );
 };
 
-WorldMap.defaultProps = {
+CountryMap.defaultProps = {
   mapData: {},
 };
-export default WorldMap;
+export default CountryMap;

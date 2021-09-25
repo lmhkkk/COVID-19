@@ -8,8 +8,8 @@ const CountryAPI = {
     return axios.get(`${baseAPI}/countries`);
   },
   statusByCountry: (countryId)=>{
-    return axios.get(`${baseAPI}/dayone/country/${countryId}?from=2021-01-01T00:00:00&to=${moment().utc(0)
-      .format()}`);
+    return axios.get(`${baseAPI}/country/${countryId}?from=2021-01-01T00:00:00&to=${moment().utc(0)
+      .format("YYYY-MM-DDT00:00:00")}`);
   },
   statusOverWorld:()=>{
     return axios.get(`https://api.covid19api.com/world`);
@@ -18,9 +18,7 @@ const CountryAPI = {
     return axios.get(`${baseAPI}/summary`);  
   },
   fetchMapDataByCountry: (countryCode) => {
-    return import(
-      `@highcharts/map-collection/countries/${countryCode}/${countryCode}-all.geo.json`
-    );
+     return axios.get(`https://code.highcharts.com/mapdata/countries/${countryCode}/${countryCode}-all.geo.json`)
   }, 
   fetchMapDataWorld: () =>{
     return axios.get(`https://code.highcharts.com/mapdata/custom/world-highres.geo.json`);

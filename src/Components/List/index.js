@@ -4,23 +4,37 @@ import "./List.css";
 class List extends Component {
   state = {
     sortTypeStatus: "",
+    sortTypeCountry: "",
   };
   onChangeSortType = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     this.props.onHandleDisplay(e.target.value);
     this.setState({
       sortTypeStatus: e.target.value,
     });
-
   };
+  onChangCountry = (e)=>{
+    e.preventDefault();
+    if(e.target.value!=="world"){
+      this.props.onHandleDisplayWorldOrCountry(e.target.value);
+      this.setState({
+        sortTypeCountry: e.target.value,
+      });
+    }else{
+      this.props.onfetch();
+    }
+
+  }
   componentDidMount(){
     this.setState({
       sortTypeStatus:this.props.display,
+      sortTypeCountry: this.props.countryDisplay,
+      countryId:this.props.countryCode,
     })
   }
-  render() {
+  render() { 
     const { summaryOfCountries } = this.props;
-    const { sortTypeStatus } = this.state;
+    const { sortTypeStatus,sortTypeCountry } = this.state;
 
     return (
       <>
@@ -28,8 +42,12 @@ class List extends Component {
           LIVE CASES BY COUNTRY
         </p>
         <div className="table-title">
-          <select className="p-2 form-select" style={{width:"18rem"}} >
-            <option value="world">World</option>
+          <select className="p-2 form-select" 
+          style={{width:"18rem"}} 
+          onChange={this.onChangCountry}
+          value={sortTypeCountry}
+          >
+            <option value="world" >World</option>
             {summaryOfCountries.map((item, index) => {
               const { Country } = item;
               return <option key={index} value={`${Country.toLowerCase()}`}>{Country}</option>;
