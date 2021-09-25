@@ -4,9 +4,6 @@ import moment from "moment";
 const baseAPI = "https://api.covid19api.com";
 
 const CountryAPI = {
-  allCountries: ()=>{
-    return axios.get(`${baseAPI}/countries`);
-  },
   statusByCountry: (countryId)=>{
     return axios.get(`${baseAPI}/country/${countryId}?from=2021-01-01T00:00:00&to=${moment().utc(0)
       .format("YYYY-MM-DDT00:00:00")}`);

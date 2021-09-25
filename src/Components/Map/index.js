@@ -79,7 +79,7 @@ const WorldMap = (props) => {
       setOptions(() => ({
         ...initOptions,
         title: {
-          text: "Global Status",
+          text: "COVID-19 Status",
         },
         series: [
           { ...initOptions.series[0], mapData: worldMap, data: fakeData },

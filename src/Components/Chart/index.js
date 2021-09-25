@@ -12,8 +12,6 @@ const generateOptions = (data, status) => {
   });
   const categories = data
     .map((item) => moment(item.Date).utc(0).format("MM/DD/YYYY")).sort();
-    console.log(data)
-    console.log(categories)
   const initoptions = {
     chart: {
       type: "spline",
@@ -48,7 +46,7 @@ const generateOptions = (data, status) => {
         series: [
           {
             name: "Total Recovered",
-            data: data.map((item) => item.Recovered||item.TotalRecovered),
+            data: data.map((item) => item.Recovered!==undefined?item.Recovered:item.TotalRecovered),
           },
         ],
       };

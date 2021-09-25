@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { cloneDeep } from "lodash";
 
 require("highcharts/modules/map")(Highcharts);
 
@@ -51,8 +52,8 @@ const initOptions = {
 const CountryMap = (props) => {
   const [options, setOptions] = useState({});
   const [mapLoaded, setMapLoaded] = useState(false);
-  const {countryMap,summaryOfCountry } = props;
-
+  const {countryMap } = props;
+  const chartRef = useRef(null);
 
   useEffect(() => {
     if (countryMap && Object.keys(countryMap).length) {
@@ -60,26 +61,35 @@ const CountryMap = (props) => {
         key: feature.properties["hc-key"],
         value: index,
       }));  
+      console.log(countryMap)
+      console.log(fakeData)
       setOptions(() => ({
         ...initOptions,
         title: {
-          text: "Global Status",
+          text: "COVID-19 Status",
         },
         series: [
           { ...initOptions.series[0], mapData:countryMap, data: fakeData },
         ],
       }));
-
       if (!mapLoaded) setMapLoaded(true);
     }
-  }, [countryMap,mapLoaded,summaryOfCountry]);
+  }, [countryMap,mapLoaded]);
+  useEffect(() => {
+    if (chartRef && chartRef.current) {
+      chartRef.current.chart.series[0].update({
+        countryMap,
+      });
+    }
+  }, [options, countryMap]);
   if (!mapLoaded) return null;
   return (
     <div >
       <HighchartsReact
-        highcharts={Highcharts}
-        constructorType={"mapChart"}
-        options={options}
+      highcharts={Highcharts}
+      options={cloneDeep(options)}
+      constructorType={"mapChart"}
+      ref={chartRef}
 
       />
     </div>

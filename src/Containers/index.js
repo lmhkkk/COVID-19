@@ -59,7 +59,16 @@ class Home extends Component {
           summaryOfCountry: responeStatusOfCountry.data,
           isCountryStatus: true,
           countryDisplay: value,
+          countryMap:{},
         });
+        this.setState({
+          isLoading: true,
+        });
+        setTimeout(() => {
+          this.setState({
+            isLoading: false,
+          });
+        }, 1000);
         const countryCode =
           responeStatusOfCountry.data[0].CountryCode.toLowerCase();
         const responsestatusOfCountry = await covidAPI.fetchMapDataByCountry(
@@ -71,6 +80,7 @@ class Home extends Component {
       } catch (err) {
         alert(err);
       }
+
   };
   onHandleDisplay = (value) => {
     this.setState({
@@ -139,7 +149,8 @@ class Home extends Component {
                     display={display}
                   />
                 ) : (
-                  <CountryMap countryMap={countryMap}
+                  <CountryMap 
+                  countryMap={countryMap}
                   summaryOfCountry={summaryOfCountry} />
                 )}
               </div>
@@ -153,6 +164,8 @@ class Home extends Component {
                   }
                   countryDisplay={countryDisplay}
                   onfetch={this.onfetch}
+                  summaryOfCountry={summaryOfCountry}
+                  isCountryStatus={isCountryStatus}
                 />
               </div>
             </div>
