@@ -48,7 +48,7 @@ class Home extends Component {
         countryMap: {},
       });
     } catch (err) {
-      alert(err);
+        alert(err);
     }
   };
 
